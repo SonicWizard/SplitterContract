@@ -6,7 +6,7 @@ contract Splitter {
 
 	//mapping (address => uint) balances;
 
-	//event Transfer(address indexed _from, address indexed _to, uint256 _value);
+	event Transfer(address indexed _from, address indexed _to, uint256 _value);
 
 	function Splitter() {
 		accountA = 0x88743434361c4f99a90589f3d7c84390573a7e79;
@@ -25,11 +25,11 @@ contract Splitter {
 		balances[accountA] += half;
 		balances[accountB] += half;
 
+	   */
+		var half = amount/2;
+
 		Transfer(msg.sender, accountA, half);
 		Transfer(msg.sender, accountB, half);
-	   */
-
-		var half = amount/2;
 
 		if (accountA.send(half) && accountB.send(half)) {
 			return true;
