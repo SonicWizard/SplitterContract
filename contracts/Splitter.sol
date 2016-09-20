@@ -1,5 +1,3 @@
-import "ConvertLib.sol";
-
 contract Splitter {
 	address accountA;
 	address accountB;
