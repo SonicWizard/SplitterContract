@@ -1,6 +1,8 @@
 var accounts;
 var account;
 
+var splitter = Splitter.deployed();
+
 function setStatus(message) {
   var status = document.getElementById("status");
   status.innerHTML = message;
