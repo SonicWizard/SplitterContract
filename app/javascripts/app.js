@@ -1,6 +1,12 @@
 var accounts;
 var account;
 
+var accountA;
+var accountB;
+var splitterAddress;
+
+Splitter.setNetwork('9151973');
+
 var splitter = Splitter.deployed();
 
 function setStatus(message) {
@@ -9,15 +15,29 @@ function setStatus(message) {
 };
 
 function refreshBalance() {
-  var meta = MetaCoin.deployed();
+	splitter.getAddress.call().then(function(value) {
+		var balance_element = document.getElementById("balance");
+		web3.eth.getBalance(splitter.address, function (err, balance) {
+			balance_element.innerHTML = web3.fromWei(balance, 'ether');
+		});
+	}).catch(function(e) {
+		console.log(e);
+		setStatus("Error getting balance; see log.");
+	});
 
-  meta.getBalance.call(account, {from: account}).then(function(value) {
-    var balance_element = document.getElementById("balance");
-    balance_element.innerHTML = value.valueOf();
-  }).catch(function(e) {
-    console.log(e);
-    setStatus("Error getting balance; see log.");
-  });
+	splitter.getAccountA.call().then(function (account) {
+		accountA = account;
+		web3.eth.getBalance(accountA, function (err, balance) {
+			document.getElementById('accountAbalance').innerHTML = web3.fromWei(balance, 'ether');
+		});
+	});
+
+	splitter.getAccountB.call().then(function (account) {
+		accountB = account;
+		web3.eth.getBalance(accountB, function (err, balance) {
+			document.getElementById('accountBbalance').innerHTML = web3.fromWei(balance, 'ether');
+		});
+	});
 };
 
 function sendCoin() {

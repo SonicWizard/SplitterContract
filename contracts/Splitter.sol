@@ -29,4 +29,8 @@ contract Splitter {
 	function getAccountB() returns(address addr) {
 		return accountB;
 	}
+
+	function getAddress() returns(address addr) {
+		return this;
+	}
 }
